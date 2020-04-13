@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.benmanwaring:permutations:1.0.4'
+    implementation 'com.benmanwaring:permutations:1.0.5'
 }
 ```
 # Sample Usage
