@@ -7,7 +7,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'com.benmanwaring'
             artifactId = 'permutations'
-            version = '1.0.2'
+            version = '1.0.3'
 
             from components.java
         }
