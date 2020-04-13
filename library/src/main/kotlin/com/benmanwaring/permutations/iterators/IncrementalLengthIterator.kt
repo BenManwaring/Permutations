@@ -1,69 +1,46 @@
 package com.benmanwaring.permutations.iterators
 
-import com.benmanwaring.permutations.arrays.ArrayInterface
-import com.benmanwaring.permutations.factory.PermutationsIteratorFactory
-import java.util.*
+import com.benmanwaring.permutations.factory.PermutationsIterable
 
-internal class IncrementalLengthIterator<T, R>(
-    private val inputArray: ArrayInterface<T>,
-    private val permutationsIteratorFactory: PermutationsIteratorFactory<T, R>,
-    private val minLength: Int,
-    private val maxLength: Int
-) : Iterator<R> {
+internal class IncrementalLengthIterator<T>(
+    private val permutationsFactory: PermutationsIterable<T>,
+    private val range: Iterable<Int>
+) : Iterator<T> {
 
-    private var currentLength = minLength
+    private var rangeIterator: Iterator<Int>? = null
 
-    private var subPermutationsIterator: PermutationsIterator<T, R, *> =
-        permutationsIteratorFactory.create(inputArray, currentLength)
+    private var permutations: Iterator<T>? = null
 
-    private var initialIncrement = true
-
-    private fun increment(): Boolean {
-        return when {
-            subPermutationsIterator.hasNext() -> {
-                true
-            }
-            currentLength < maxLength -> {
-                currentLength++
-                subPermutationsIterator =
-                    permutationsIteratorFactory.create(inputArray, currentLength)
-                true
-            }
-            else -> {
-                currentLength = minLength
-                subPermutationsIterator =
-                    permutationsIteratorFactory.create(inputArray, currentLength)
-                false
-            }
+    private fun getRangeIterator(): Iterator<Int> {
+        var safeRangeIterator = rangeIterator
+        if (safeRangeIterator == null) {
+            safeRangeIterator = range.iterator()
+            rangeIterator = safeRangeIterator
         }
+        return safeRangeIterator
+    }
+
+    private fun getPermutations(): Iterator<T> {
+        var safePermutations = permutations
+        if (safePermutations == null) {
+            if (!getRangeIterator().hasNext()) {
+                throw NoSuchElementException("Range exhausted, check hasNext() prior to using next()")
+            }
+            safePermutations = permutationsFactory.create(getRangeIterator().next())
+            permutations = safePermutations
+        }
+        return safePermutations
     }
 
     override fun hasNext(): Boolean {
-        return when {
-            initialIncrement -> {
-                true
-            }
-            subPermutationsIterator.hasNext() -> {
-                true
-            }
-            currentLength < maxLength -> {
-                true
-            }
-            else -> {
-                false
-            }
-        }
+        return getRangeIterator().hasNext() || getPermutations().hasNext()
     }
 
-    override fun next(): R {
-        if (initialIncrement) {
-            initialIncrement = false
-        } else {
-            if (!increment()) {
-                throw NoSuchElementException("Iterable exhausted: use has next to check element available prior to using next")
-            }
+    override fun next(): T {
+        if (!getPermutations().hasNext()) {
+            permutations = null
         }
-        return subPermutationsIterator.next()
+        return getPermutations().next()
     }
 }
 

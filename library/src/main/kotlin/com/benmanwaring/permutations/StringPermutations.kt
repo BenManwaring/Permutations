@@ -1,52 +1,39 @@
 package com.benmanwaring.permutations
 
-import com.benmanwaring.permutations.arrays.WrappedCharArray
+import com.benmanwaring.permutations.arrays.UnwrappedStringPermutations
+import com.benmanwaring.permutations.factory.PermutationsIterable
 import com.benmanwaring.permutations.iterators.IncrementalLengthIterator
-import com.benmanwaring.permutations.iterators.InternalStringIterator
 
-class StringPermutations : Iterable<String> {
+class StringPermutations(private val inputArray: CharArray) : PermutationsIterable<String> {
 
-    private val iterable: Iterable<String>
-
-    constructor(inputArray: CharArray, length: Int) {
+    init {
         if (inputArray.isEmpty()) {
             throw IllegalArgumentException("Input must not be empty")
         }
+    }
 
+    fun iterable(length: Int): Iterable<String> {
         if (length < 1) {
-            throw IllegalArgumentException("Length must be larger than 0")
+            return emptyList()
         }
 
-        iterable = object : Iterable<String> {
+        return object : Iterable<String> {
             override fun iterator(): Iterator<String> {
-                return InternalStringIterator(inputArray, length)
+                return UnwrappedStringPermutations(inputArray, length)
             }
         }
     }
 
-    constructor(inputArray: CharArray, minLength: Int, maxLength: Int) {
-        if (inputArray.isEmpty()) {
-            throw IllegalArgumentException("Input must not be empty")
-        }
-
-        if (minLength !in 1..maxLength) {
-            throw IllegalArgumentException("Min length must be higher than 0 and less than the max length")
-        }
-
-        iterable = object : Iterable<String> {
-            override fun iterator(): Iterator<String> {
-                return IncrementalLengthIterator(
-                    WrappedCharArray(inputArray),
-                    InternalStringIterator.FACTORY,
-                    minLength,
-                    maxLength
-                )
-            }
-        }
+    override fun create(length: Int): Iterator<String> {
+        return iterable(length).iterator()
     }
 
-    override fun iterator(): Iterator<String> {
-        return iterable.iterator()
+    fun iterable(range: Iterable<Int>): Iterable<String> {
+        return object : Iterable<String> {
+            override fun iterator(): Iterator<String> {
+                return IncrementalLengthIterator(this@StringPermutations, range)
+            }
+        }
     }
 }
 

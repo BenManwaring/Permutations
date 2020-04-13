@@ -8,8 +8,8 @@ import org.junit.Test
 class BinaryPermutationsTest {
 
     @Test
-    fun `Binary permutations iterable for fixed length`() {
-        val binaryPermutationsIterator = BinaryPermutations(length = 2).iterator()
+    fun `Binary permutations iterator for fixed length defaulted input array`() {
+        val binaryPermutationsIterator = Permutations.createBinary().iterable(2).iterator()
 
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false, false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
@@ -20,16 +20,18 @@ class BinaryPermutationsTest {
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true, true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(false))
 
-        assertThrows(
-            "Iterable exhausted: use has next to check element available prior to using next",
-            NoSuchElementException::class.java
-        ) { binaryPermutationsIterator.next() }
+        val exception =
+            assertThrows(NoSuchElementException::class.java) { binaryPermutationsIterator.next() }
+        assertThat(
+            exception.message,
+            `is`("Input array exhausted, check hasNext() prior to using next()")
+        )
     }
 
     @Test
-    fun `Binary permutations iterable with additional inputs for fixed length`() {
+    fun `Binary permutations iterator for fixed length valid input array`() {
         val binaryPermutationsIterator =
-            BinaryPermutations(arrayOf(true, false, true), 2).iterator()
+            Permutations.createBinary(arrayOf(true, false, true)).iterable(2).iterator()
 
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true, true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
@@ -50,15 +52,25 @@ class BinaryPermutationsTest {
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true, true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(false))
 
-        assertThrows(
-            "Iterable exhausted: use has next to check element available prior to using next",
-            NoSuchElementException::class.java
-        ) { binaryPermutationsIterator.next() }
+        val exception =
+            assertThrows(NoSuchElementException::class.java) { binaryPermutationsIterator.next() }
+        assertThat(
+            exception.message,
+            `is`("Input array exhausted, check hasNext() prior to using next()")
+        )
     }
 
     @Test
-    fun `Binary permutations iterable for length range`() {
-        val binaryPermutationsIterator = BinaryPermutations(minLength = 1, maxLength = 3).iterator()
+    fun `Binary permutations iterator for zero length valid input array`() {
+        val stringPermutationsIterator =
+            Permutations.createBinary().iterable(0).iterator()
+
+        assertThat(stringPermutationsIterator.hasNext(), `is`(false))
+    }
+
+    @Test
+    fun `Binary permutations iterator for ranged length defaulted input array`() {
+        val binaryPermutationsIterator = Permutations.createBinary().iterable(1..3).iterator()
 
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
@@ -89,15 +101,18 @@ class BinaryPermutationsTest {
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true, true, true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(false))
 
-        assertThrows(
-            "Iterable exhausted: use has next to check element available prior to using next",
-            NoSuchElementException::class.java
-        ) { binaryPermutationsIterator.next() }
+        val exception =
+            assertThrows(NoSuchElementException::class.java) { binaryPermutationsIterator.next() }
+        assertThat(
+            exception.message,
+            `is`("Range exhausted, check hasNext() prior to using next()")
+        )
     }
 
     @Test
-    fun `Binary permutations iterable for length range with inverted booleans`() {
-        val binaryPermutationsIterator = BinaryPermutations(arrayOf(true, false), 1, 3).iterator()
+    fun `Binary permutations iterator for ranged length valid input array`() {
+        val binaryPermutationsIterator =
+            Permutations.createBinary(arrayOf(true, false)).iterable(1..3).iterator()
 
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
@@ -128,19 +143,35 @@ class BinaryPermutationsTest {
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false, false, false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(false))
 
-        assertThrows(
-            "Iterable exhausted: use has next to check element available prior to using next",
-            NoSuchElementException::class.java
-        ) { binaryPermutationsIterator.next() }
+        val exception =
+            assertThrows(NoSuchElementException::class.java) { binaryPermutationsIterator.next() }
+        assertThat(
+            exception.message,
+            `is`("Range exhausted, check hasNext() prior to using next()")
+        )
     }
 
     @Test
-    fun `Binary permutations with end length of 1000`() {
-        val binaryPermutations = BinaryPermutations(arrayOf(false), 1, 1000)
+    fun `No such element exception for negative range`() {
+        assertThrows(NoSuchElementException::class.java) {
+            Permutations.createBinary().iterable(-1..0).iterator().next()
+        }
+    }
+
+    @Test
+    fun `No such element exception for zero to zero range`() {
+        assertThrows(NoSuchElementException::class.java) {
+            Permutations.createBinary().iterable(0..0).iterator().next()
+        }
+    }
+
+    @Test
+    fun `Binary permutations iterator for large ranged length valid input array`() {
+        val binaryPermutationsIterable = Permutations.createBinary(arrayOf(false)).iterable(1..1000)
 
         var incrementCount = 0
         val expectedBinary = mutableListOf(false)
-        for (binary in binaryPermutations) {
+        for (binary in binaryPermutationsIterable) {
             assertThat(binary, `is`(expectedBinary.toTypedArray()))
             incrementCount++
             expectedBinary.add(false)
@@ -150,13 +181,14 @@ class BinaryPermutationsTest {
     }
 
     @Test
-    fun `Binary permutations with start length of 10 and end length of 1000`() {
-        val binaryPermutations = BinaryPermutations(arrayOf(false), 10, 1000)
+    fun `Binary permutations iterator for large offset ranged length valid input array`() {
+        val binaryPermutationsIterable =
+            Permutations.createBinary(arrayOf(false)).iterable(10..1000)
 
         var incrementCount = 0
         val expectedBinary =
             mutableListOf(false, false, false, false, false, false, false, false, false, false)
-        for (binary in binaryPermutations) {
+        for (binary in binaryPermutationsIterable) {
             assertThat(binary, `is`(expectedBinary.toTypedArray()))
             incrementCount++
             expectedBinary.add(false)
@@ -166,37 +198,10 @@ class BinaryPermutationsTest {
     }
 
     @Test
-    fun `Illegal argument exception for empty input and fixed length`() {
+    fun `Illegal argument exception for empty input`() {
         val exception = assertThrows(IllegalArgumentException::class.java) {
-            BinaryPermutations(arrayOf(), 0).iterator()
+            Permutations.createBinary(arrayOf())
         }
         assertThat(exception.message, `is`("Input must not be empty"))
-    }
-
-    @Test
-    fun `Illegal argument exception for empty input and ranged length`() {
-        val exception = assertThrows(IllegalArgumentException::class.java) {
-            BinaryPermutations(arrayOf(), 0, 0).iterator()
-        }
-        assertThat(exception.message, `is`("Input must not be empty"))
-    }
-
-    @Test
-    fun `Illegal argument exception for 0 length`() {
-        val exception = assertThrows(IllegalArgumentException::class.java) {
-            BinaryPermutations(arrayOf(true), 0).iterator()
-        }
-        assertThat(exception.message, `is`("Length must be larger than 0"))
-    }
-
-    @Test
-    fun `Illegal argument exception for miss ranged min and max`() {
-        val exception = assertThrows(IllegalArgumentException::class.java) {
-            BinaryPermutations(arrayOf(true), 2, 1).iterator()
-        }
-        assertThat(
-            exception.message,
-            `is`("Min length must be higher than 0 and less than the max length")
-        )
     }
 }
