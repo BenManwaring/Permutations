@@ -11,6 +11,7 @@ class StringPermutationsTest {
     fun `String permutations iterator for fixed length valid input array`() {
         val stringPermutationsIterator = "ABC".permutations(2).iterator()
 
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("AA"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("AB"))
@@ -49,6 +50,7 @@ class StringPermutationsTest {
     fun `String permutations iterator for ranged length valid input array`() {
         val stringPermutationsIterator = "AB".permutations(1..3).iterator()
 
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("A"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("B"))

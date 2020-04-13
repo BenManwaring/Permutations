@@ -11,6 +11,7 @@ class ArrayPermutationsTest {
     fun `Any permutations iterator for fixed length valid input array`() {
         val permutationsIterator = arrayOf(null, 1, "test").permutations(2).iterator()
 
+        assertThat(permutationsIterator.hasNext(), `is`(true))
         assertThat(permutationsIterator.next(), `is`(arrayOf<Any?>(null, null)))
         assertThat(permutationsIterator.hasNext(), `is`(true))
         assertThat(permutationsIterator.next(), `is`(arrayOf<Any?>(null, 1)))
@@ -50,6 +51,7 @@ class ArrayPermutationsTest {
         val permutationsIterator =
             arrayOf<Any?>(null, 1, "test").permutations(1..3).iterator()
 
+        assertThat(permutationsIterator.hasNext(), `is`(true))
         assertThat(permutationsIterator.next(), `is`(arrayOf<Any?>(null)))
         assertThat(permutationsIterator.hasNext(), `is`(true))
         assertThat(permutationsIterator.next(), `is`(arrayOf<Any?>(1)))

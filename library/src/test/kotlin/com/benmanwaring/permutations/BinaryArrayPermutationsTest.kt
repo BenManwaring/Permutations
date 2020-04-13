@@ -11,6 +11,7 @@ class BinaryArrayPermutationsTest {
     fun `Binary permutations iterator for fixed length defaulted input array`() {
         val binaryPermutationsIterator = arrayOf(false, true).permutations(2).iterator()
 
+        assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false, false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false, true)))
@@ -32,6 +33,7 @@ class BinaryArrayPermutationsTest {
     fun `Binary permutations iterator for fixed length valid input array`() {
         val binaryPermutationsIterator = arrayOf(true, false, true).permutations(2).iterator()
 
+        assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true, true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true, false)))
@@ -70,6 +72,7 @@ class BinaryArrayPermutationsTest {
     fun `Binary permutations iterator for ranged length defaulted input array`() {
         val binaryPermutationsIterator = arrayOf(false, true).permutations(1..3).iterator()
 
+        assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true)))
@@ -112,6 +115,7 @@ class BinaryArrayPermutationsTest {
         val binaryPermutationsIterator =
             arrayOf(true, false).permutations(1..3).iterator()
 
+        assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false)))

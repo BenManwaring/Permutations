@@ -11,6 +11,7 @@ class BinaryListPermutationsTest {
     fun `Binary permutations iterator for fixed length defaulted input array`() {
         val binaryPermutationsIterator = listOf(false, true).permutations(2).iterator()
 
+        assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(listOf(false, false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(listOf(false, true)))
@@ -32,6 +33,7 @@ class BinaryListPermutationsTest {
     fun `Binary permutations iterator for fixed length valid input array`() {
         val binaryPermutationsIterator = listOf(true, false, true).permutations(2).iterator()
 
+        assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(listOf(true, true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(listOf(true, false)))
@@ -70,6 +72,7 @@ class BinaryListPermutationsTest {
     fun `Binary permutations iterator for ranged length defaulted input array`() {
         val binaryPermutationsIterator = listOf(false, true).permutations(1..3).iterator()
 
+        assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(listOf(false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(listOf(true)))
@@ -112,6 +115,7 @@ class BinaryListPermutationsTest {
         val binaryPermutationsIterator =
             listOf(true, false).permutations(1..3).iterator()
 
+        assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(listOf(true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
         assertThat(binaryPermutationsIterator.next(), `is`(listOf(false)))
