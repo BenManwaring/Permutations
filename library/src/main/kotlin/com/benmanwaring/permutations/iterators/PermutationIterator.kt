@@ -3,58 +3,47 @@ package com.benmanwaring.permutations.iterators
 import com.benmanwaring.permutations.arrays.ArrayInterface
 
 internal open class PermutationIterator<T, A : ArrayInterface<T>> private constructor(
-    private val inputArray: A,
+    private val inputIterable: Iterable<T>,
     private val outputArray: A,
     private val outputArrayIndex: Int
 ) : Iterator<A> {
 
-    private val subPermutationIterator: PermutationIterator<T, A>? =
-        if (outputArrayIndex + 1 < outputArray.size) {
-            PermutationIterator(inputArray, outputArray, outputArrayIndex + 1)
-        } else {
-            null
+    private val subPermutationIterator: PermutationIterator<T, A>? = if (outputArrayIndex > 0) {
+        PermutationIterator(inputIterable, outputArray, outputArrayIndex - 1)
+    } else {
+        null
+    }
+
+    private var currentIterator: Iterator<T> = inputIterable.iterator()
+
+    init {
+        // The outputArray is already initialised for all the positions so we need to neglect the
+        // first items of the all but last permutation.
+        if (outputArrayIndex != outputArray.size - 1) {
+            currentIterator.next()
         }
+    }
 
-    private var currentInputArrayIndex = 0
-
-    private var beforeFirstNext = true
-
-    constructor(inputArray: A, outputArray: A) : this(inputArray, outputArray, 0)
+    constructor(inputArray: Iterable<T>, outputArray: A) : this(
+        inputArray,
+        outputArray,
+        outputArray.size - 1
+    )
 
     override fun hasNext(): Boolean {
-        return (subPermutationIterator != null && subPermutationIterator.hasNext())
-                || (currentInputArrayIndex < inputArray.size - 1)
-                || (beforeFirstNext && inputArray.size > 0)
+        return (subPermutationIterator != null && subPermutationIterator.hasNext()) || (currentIterator.hasNext())
     }
 
     override fun next(): A {
-        if (beforeFirstNext) {
-            beforeFirstNext = false
-            subPermutationIterator?.next()
-            return outputArray
-        }
-
-        if (subPermutationIterator != null) {
-            if (subPermutationIterator.hasNext()) {
-                subPermutationIterator.next()
-                return outputArray
-            } else {
-                subPermutationIterator.reset()
+        if (!currentIterator.hasNext()) {
+            if (subPermutationIterator == null || !subPermutationIterator.hasNext()) {
+                throw NoSuchElementException("Input array exhausted, check hasNext() prior to using next()")
             }
+            subPermutationIterator.next()
+            currentIterator = inputIterable.iterator()
         }
-        if (currentInputArrayIndex < inputArray.size - 1) {
-            currentInputArrayIndex++
-            outputArray[outputArrayIndex] = inputArray[currentInputArrayIndex]
-        } else {
-            throw NoSuchElementException("Input array exhausted, check hasNext() prior to using next()")
-        }
+        outputArray[outputArrayIndex] = currentIterator.next()
         return outputArray
-    }
-
-    private fun reset() {
-        subPermutationIterator?.reset()
-        currentInputArrayIndex = 0
-        outputArray[outputArrayIndex] = inputArray[0]
     }
 }
 

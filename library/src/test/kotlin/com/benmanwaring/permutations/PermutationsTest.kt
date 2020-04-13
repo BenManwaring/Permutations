@@ -170,11 +170,7 @@ class PermutationsTest {
 
     @Test
     fun `Any permutations iterator for large offset ranged length valid input array`() {
-        val genericIterable = Permutations<Any?>(
-            arrayOf(null)
-        ) { length, initialValue -> Array(length) { initialValue } }.iterable(
-            10..1000
-        )
+        val genericIterable = Permutations.create(arrayOf<Any?>(null)).iterable(10..1000)
 
         var incrementCount = 0
         val expectedArray =
@@ -190,10 +186,18 @@ class PermutationsTest {
     }
 
     @Test
-    fun `Illegal argument exception for empty input`() {
-        val exception = assertThrows(IllegalArgumentException::class.java) {
-            Permutations.create(arrayOf<Any?>())
+    fun `Illegal argument exception for empty input for fixed length`() {
+        val exception = assertThrows(NoSuchElementException::class.java) {
+            Permutations.create(arrayOf<Any?>()).iterable(1).iterator().next()
         }
-        assertThat(exception.message, `is`("Input must not be empty"))
+        assertThat(exception.message, `is`("Array is empty."))
+    }
+
+    @Test
+    fun `Illegal argument exception for empty input for ranged length`() {
+        val exception = assertThrows(NoSuchElementException::class.java) {
+            Permutations.create(arrayOf<Any?>()).iterable(1..2).iterator().next()
+        }
+        assertThat(exception.message, `is`("Array is empty."))
     }
 }

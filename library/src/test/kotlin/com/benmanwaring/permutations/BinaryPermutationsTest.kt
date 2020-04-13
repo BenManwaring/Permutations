@@ -198,10 +198,18 @@ class BinaryPermutationsTest {
     }
 
     @Test
-    fun `Illegal argument exception for empty input`() {
-        val exception = assertThrows(IllegalArgumentException::class.java) {
-            Permutations.createBinary(arrayOf())
+    fun `Illegal argument exception for empty input for fixed length`() {
+        val exception = assertThrows(NoSuchElementException::class.java) {
+            Permutations.createBinary(arrayOf()).iterable(1).iterator().next()
         }
-        assertThat(exception.message, `is`("Input must not be empty"))
+        assertThat(exception.message, `is`("Array is empty."))
+    }
+
+    @Test
+    fun `Illegal argument exception for empty input for ranged length`() {
+        val exception = assertThrows(NoSuchElementException::class.java) {
+            Permutations.createBinary(arrayOf()).iterable(1..2).iterator().next()
+        }
+        assertThat(exception.message, `is`("Array is empty."))
     }
 }

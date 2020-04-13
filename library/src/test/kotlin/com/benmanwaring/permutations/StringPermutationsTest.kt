@@ -50,35 +50,35 @@ class StringPermutationsTest {
     @Test
     fun `String permutations iterator for ranged length valid input array`() {
         val stringPermutationsIterator =
-            StringPermutations("BA".toCharArray()).iterable(1..3).iterator()
+            StringPermutations("AB".toCharArray()).iterable(1..3).iterator()
 
-        assertThat(stringPermutationsIterator.next(), `is`("B"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("A"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BB"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BA"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("AB"))
+        assertThat(stringPermutationsIterator.next(), `is`("B"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("AA"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BBB"))
+        assertThat(stringPermutationsIterator.next(), `is`("AB"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BBA"))
+        assertThat(stringPermutationsIterator.next(), `is`("BA"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BAB"))
+        assertThat(stringPermutationsIterator.next(), `is`("BB"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BAA"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("ABB"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("ABA"))
+        assertThat(stringPermutationsIterator.next(), `is`("AAA"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("AAB"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("AAA"))
+        assertThat(stringPermutationsIterator.next(), `is`("ABA"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("ABB"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BAA"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BAB"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BBA"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BBB"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(false))
 
         val exception =
@@ -92,36 +92,36 @@ class StringPermutationsTest {
     @Test
     fun `String permutations iterator for decreasing ranged length valid input array`() {
         val stringPermutationsIterator =
-            StringPermutations("BA".toCharArray()).iterable(3 downTo 1).iterator()
+            StringPermutations("AB".toCharArray()).iterable(3 downTo 1).iterator()
 
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BBB"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BBA"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BAB"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BAA"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("ABB"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("ABA"))
-        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("AAB"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("AAA"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BB"))
+        assertThat(stringPermutationsIterator.next(), `is`("AAB"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("BA"))
+        assertThat(stringPermutationsIterator.next(), `is`("ABA"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("AB"))
+        assertThat(stringPermutationsIterator.next(), `is`("ABB"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BAA"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BAB"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BBA"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BBB"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("AA"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
-        assertThat(stringPermutationsIterator.next(), `is`("B"))
+        assertThat(stringPermutationsIterator.next(), `is`("AB"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BA"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("BB"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(true))
         assertThat(stringPermutationsIterator.next(), `is`("A"))
+        assertThat(stringPermutationsIterator.hasNext(), `is`(true))
+        assertThat(stringPermutationsIterator.next(), `is`("B"))
         assertThat(stringPermutationsIterator.hasNext(), `is`(false))
 
         val exception =
@@ -177,10 +177,18 @@ class StringPermutationsTest {
     }
 
     @Test
-    fun `Illegal argument exception for empty input`() {
-        val exception = assertThrows(IllegalArgumentException::class.java) {
-            StringPermutations("".toCharArray())
+    fun `Illegal argument exception for empty input for fixed length`() {
+        val exception = assertThrows(NoSuchElementException::class.java) {
+            StringPermutations("".toCharArray()).iterable(1).iterator().next()
         }
-        assertThat(exception.message, `is`("Input must not be empty"))
+        assertThat(exception.message, `is`("Array is empty."))
+    }
+
+    @Test
+    fun `Illegal argument exception for empty input for ranged length`() {
+        val exception = assertThrows(NoSuchElementException::class.java) {
+            StringPermutations("".toCharArray()).iterable(1..2).iterator().next()
+        }
+        assertThat(exception.message, `is`("Array is empty."))
     }
 }

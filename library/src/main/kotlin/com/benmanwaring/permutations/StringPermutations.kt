@@ -1,16 +1,10 @@
 package com.benmanwaring.permutations
 
-import com.benmanwaring.permutations.arrays.UnwrappedStringPermutations
-import com.benmanwaring.permutations.factory.PermutationsIterable
+import com.benmanwaring.permutations.iterables.PermutationsIterable
 import com.benmanwaring.permutations.iterators.IncrementalLengthIterator
+import com.benmanwaring.permutations.iterators.StringPermutationsIterator
 
-class StringPermutations(private val inputArray: CharArray) : PermutationsIterable<String> {
-
-    init {
-        if (inputArray.isEmpty()) {
-            throw IllegalArgumentException("Input must not be empty")
-        }
-    }
+class StringPermutations(private val charArray: CharArray) : PermutationsIterable<String> {
 
     fun iterable(length: Int): Iterable<String> {
         if (length < 1) {
@@ -19,7 +13,7 @@ class StringPermutations(private val inputArray: CharArray) : PermutationsIterab
 
         return object : Iterable<String> {
             override fun iterator(): Iterator<String> {
-                return UnwrappedStringPermutations(inputArray, length)
+                return StringPermutationsIterator(charArray, length)
             }
         }
     }

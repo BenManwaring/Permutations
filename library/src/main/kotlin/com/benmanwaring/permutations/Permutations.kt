@@ -1,19 +1,13 @@
 package com.benmanwaring.permutations
 
-import com.benmanwaring.permutations.arrays.UnwrappedArrayPermutations
-import com.benmanwaring.permutations.factory.PermutationsIterable
+import com.benmanwaring.permutations.iterables.PermutationsIterable
+import com.benmanwaring.permutations.iterators.ArrayPermutationsIterator
 import com.benmanwaring.permutations.iterators.IncrementalLengthIterator
 
 class Permutations<T>(
     private val inputArray: Array<T>,
     private val arrayFactory: (length: Int, initialValue: T) -> Array<T>
 ) : PermutationsIterable<Array<T>> {
-
-    init {
-        if (inputArray.isEmpty()) {
-            throw IllegalArgumentException("Input must not be empty")
-        }
-    }
 
     fun iterable(length: Int): Iterable<Array<T>> {
         if (length < 1) {
@@ -22,7 +16,7 @@ class Permutations<T>(
 
         return object : Iterable<Array<T>> {
             override fun iterator(): Iterator<Array<T>> {
-                return UnwrappedArrayPermutations(inputArray, length, arrayFactory)
+                return ArrayPermutationsIterator(inputArray, length, arrayFactory)
             }
         }
     }

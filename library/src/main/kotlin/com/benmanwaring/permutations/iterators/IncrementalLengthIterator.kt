@@ -1,6 +1,6 @@
 package com.benmanwaring.permutations.iterators
 
-import com.benmanwaring.permutations.factory.PermutationsIterable
+import com.benmanwaring.permutations.iterables.PermutationsIterable
 
 internal class IncrementalLengthIterator<T>(
     private val permutationsFactory: PermutationsIterable<T>,

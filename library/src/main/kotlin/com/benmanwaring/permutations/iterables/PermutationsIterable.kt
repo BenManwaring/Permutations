@@ -1,4 +1,4 @@
-package com.benmanwaring.permutations.factory
+package com.benmanwaring.permutations.iterables
 
 internal interface PermutationsIterable<T> {
 

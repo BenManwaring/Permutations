@@ -6,12 +6,12 @@ internal class WrappedCharArray(private val charArray: CharArray) : ArrayInterfa
 
     override val size: Int get() = charArray.size
 
-    override fun get(index: Int): Char {
-        return charArray[index]
-    }
-
     override fun set(index: Int, value: Char) {
         charArray[index] = value
+    }
+
+    override fun iterator(): Iterator<Char> {
+        return charArray.iterator()
     }
 
     fun output(): String {
