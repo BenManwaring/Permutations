@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.benmanwaring:permutations:1.0.2'
 }
 ```
-# Sample Ussage
+# Sample Usage
 ## For CharArray to String permutations
 ### Fixed length
 #### Code
