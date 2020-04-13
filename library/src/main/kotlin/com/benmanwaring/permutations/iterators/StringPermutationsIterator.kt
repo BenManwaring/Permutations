@@ -5,9 +5,9 @@ import com.benmanwaring.permutations.arrays.WrappedCharArray
 internal class StringPermutationsIterator(private val iterator: Iterator<WrappedCharArray>) :
     Iterator<String> {
 
-    constructor(charArray: CharArray, length: Int) : this(
+    constructor(charArray: Iterable<Char>, length: Int) : this(
         PermutationIterator(
-            WrappedCharArray(charArray),
+            charArray,
             WrappedCharArray(length, charArray.first())
         )
     )

@@ -26,9 +26,9 @@ dependencies {
 ### Fixed length
 #### Code
 ```
-val stringPermutationsIterable = StringPermutations("AB".toCharArray()).iterable(2)
+val stringPermutations = "AB".permutations(2)
 
-for (stringPermutation in stringPermutationsIterable) {
+for (stringPermutation in stringPermutations) {
     System.out.println(stringPermutation)
 }
 ```
@@ -42,9 +42,9 @@ BB
 ### Range of lengths
 #### Code
 ```
-val stringPermutationsIterable = StringPermutations("AB".toCharArray()).iterable(1..3)
+val stringPermutations = "AB".permutations(1..3)
 
-for (stringPermutation in stringPermutationsIterable) {
+for (stringPermutation in stringPermutations) {
     System.out.println(stringPermutation)
 }
 ```
@@ -69,9 +69,9 @@ BBB
 ### Fixed length
 #### Code
 ```
-val binaryPermutationsIterable = Permutations.create(arrayOf(0, 1)).iterable(2)
+val binaryPermutations = arrayOf(0, 1).permutations(2)
 
-for (binaryPermutation in binaryPermutationsIterable) {
+for (binaryPermutation in binaryPermutations) {
     System.out.println(binaryPermutation.joinToString(separator = ", "))
 }
 ```
@@ -85,9 +85,9 @@ for (binaryPermutation in binaryPermutationsIterable) {
 ### Range of lengths
 #### Code
 ```
-val binaryPermutationsIterable = Permutations.create(arrayOf(0, 1)).iterable(1..3)
+val binaryPermutations = arrayOf(0, 1).permutations(1..3)
 
-for (binaryPermutation in binaryPermutationsIterable) {
+for (binaryPermutation in binaryPermutations) {
     System.out.println(binaryPermutation.joinToString(separator = ", "))
 }
 ```

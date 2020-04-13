@@ -10,10 +10,6 @@ internal class WrappedCharArray(private val charArray: CharArray) : ArrayInterfa
         charArray[index] = value
     }
 
-    override fun iterator(): Iterator<Char> {
-        return charArray.iterator()
-    }
-
     fun output(): String {
         return String(charArray)
     }

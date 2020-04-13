@@ -4,29 +4,22 @@ import com.benmanwaring.permutations.iterables.PermutationsIterable
 import com.benmanwaring.permutations.iterators.IncrementalLengthIterator
 import com.benmanwaring.permutations.iterators.StringPermutationsIterator
 
-class StringPermutations(private val charArray: CharArray) : PermutationsIterable<String> {
-
-    fun iterable(length: Int): Iterable<String> {
-        if (length < 1) {
-            return emptyList()
-        }
-
-        return object : Iterable<String> {
-            override fun iterator(): Iterator<String> {
-                return StringPermutationsIterator(charArray, length)
-            }
-        }
+fun String.permutations(length: Int): Iterable<String> {
+    if (length < 1) {
+        return emptyList()
     }
 
-    override fun create(length: Int): Iterator<String> {
-        return iterable(length).iterator()
-    }
+    return Iterable { StringPermutationsIterator(asIterable(), length) }
+}
 
-    fun iterable(range: Iterable<Int>): Iterable<String> {
-        return object : Iterable<String> {
-            override fun iterator(): Iterator<String> {
-                return IncrementalLengthIterator(this@StringPermutations, range)
-            }
+fun String.permutations(range: Iterable<Int>): Iterable<String> {
+    return object : Iterable<String>, PermutationsIterable<String> {
+        override fun iterator(): Iterator<String> {
+            return IncrementalLengthIterator(this, range)
+        }
+
+        override fun create(length: Int): Iterator<String> {
+            return this@permutations.permutations(length).iterator()
         }
     }
 }

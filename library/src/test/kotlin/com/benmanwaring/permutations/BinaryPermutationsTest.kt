@@ -9,7 +9,7 @@ class BinaryPermutationsTest {
 
     @Test
     fun `Binary permutations iterator for fixed length defaulted input array`() {
-        val binaryPermutationsIterator = Permutations.createBinary().iterable(2).iterator()
+        val binaryPermutationsIterator = arrayOf(false, true).permutations(2).iterator()
 
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false, false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
@@ -30,8 +30,7 @@ class BinaryPermutationsTest {
 
     @Test
     fun `Binary permutations iterator for fixed length valid input array`() {
-        val binaryPermutationsIterator =
-            Permutations.createBinary(arrayOf(true, false, true)).iterable(2).iterator()
+        val binaryPermutationsIterator = arrayOf(true, false, true).permutations(2).iterator()
 
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true, true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
@@ -62,15 +61,14 @@ class BinaryPermutationsTest {
 
     @Test
     fun `Binary permutations iterator for zero length valid input array`() {
-        val stringPermutationsIterator =
-            Permutations.createBinary().iterable(0).iterator()
+        val stringPermutationsIterator = arrayOf(false, true).permutations(0).iterator()
 
         assertThat(stringPermutationsIterator.hasNext(), `is`(false))
     }
 
     @Test
     fun `Binary permutations iterator for ranged length defaulted input array`() {
-        val binaryPermutationsIterator = Permutations.createBinary().iterable(1..3).iterator()
+        val binaryPermutationsIterator = arrayOf(false, true).permutations(1..3).iterator()
 
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(false)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
@@ -112,7 +110,7 @@ class BinaryPermutationsTest {
     @Test
     fun `Binary permutations iterator for ranged length valid input array`() {
         val binaryPermutationsIterator =
-            Permutations.createBinary(arrayOf(true, false)).iterable(1..3).iterator()
+            arrayOf(true, false).permutations(1..3).iterator()
 
         assertThat(binaryPermutationsIterator.next(), `is`(arrayOf(true)))
         assertThat(binaryPermutationsIterator.hasNext(), `is`(true))
@@ -154,24 +152,24 @@ class BinaryPermutationsTest {
     @Test
     fun `No such element exception for negative range`() {
         assertThrows(NoSuchElementException::class.java) {
-            Permutations.createBinary().iterable(-1..0).iterator().next()
+            arrayOf(false, true).permutations(-1..0).iterator().next()
         }
     }
 
     @Test
     fun `No such element exception for zero to zero range`() {
         assertThrows(NoSuchElementException::class.java) {
-            Permutations.createBinary().iterable(0..0).iterator().next()
+            arrayOf(false, true).permutations(0..0).iterator().next()
         }
     }
 
     @Test
     fun `Binary permutations iterator for large ranged length valid input array`() {
-        val binaryPermutationsIterable = Permutations.createBinary(arrayOf(false)).iterable(1..1000)
+        val binaryPermutations = arrayOf(false).permutations(1..1000)
 
         var incrementCount = 0
         val expectedBinary = mutableListOf(false)
-        for (binary in binaryPermutationsIterable) {
+        for (binary in binaryPermutations) {
             assertThat(binary, `is`(expectedBinary.toTypedArray()))
             incrementCount++
             expectedBinary.add(false)
@@ -182,13 +180,13 @@ class BinaryPermutationsTest {
 
     @Test
     fun `Binary permutations iterator for large offset ranged length valid input array`() {
-        val binaryPermutationsIterable =
-            Permutations.createBinary(arrayOf(false)).iterable(10..1000)
+        val binaryPermutations =
+            arrayOf(false).permutations(10..1000)
 
         var incrementCount = 0
         val expectedBinary =
             mutableListOf(false, false, false, false, false, false, false, false, false, false)
-        for (binary in binaryPermutationsIterable) {
+        for (binary in binaryPermutations) {
             assertThat(binary, `is`(expectedBinary.toTypedArray()))
             incrementCount++
             expectedBinary.add(false)
@@ -200,16 +198,16 @@ class BinaryPermutationsTest {
     @Test
     fun `Illegal argument exception for empty input for fixed length`() {
         val exception = assertThrows(NoSuchElementException::class.java) {
-            Permutations.createBinary(arrayOf()).iterable(1).iterator().next()
+            arrayOf<Boolean>().permutations(1).iterator().next()
         }
-        assertThat(exception.message, `is`("Array is empty."))
+        assertThat(exception.message, `is`("List is empty."))
     }
 
     @Test
     fun `Illegal argument exception for empty input for ranged length`() {
         val exception = assertThrows(NoSuchElementException::class.java) {
-            Permutations.createBinary(arrayOf()).iterable(1..2).iterator().next()
+            arrayOf<Boolean>().permutations(1..2).iterator().next()
         }
-        assertThat(exception.message, `is`("Array is empty."))
+        assertThat(exception.message, `is`("List is empty."))
     }
 }

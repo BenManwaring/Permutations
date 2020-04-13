@@ -6,12 +6,12 @@ internal class ArrayPermutationsIterator<T>(private val permutations: Iterator<W
     Iterator<Array<T>> {
 
     constructor(
-        inputArray: Array<T>,
+        inputArray: Iterable<T>,
         length: Int,
         arrayInit: (length: Int, initialValue: T) -> Array<T>
     ) : this(
         PermutationIterator(
-            WrappedArray(inputArray),
+            inputArray,
             WrappedArray(arrayInit.invoke(length, inputArray.first()))
         )
     )

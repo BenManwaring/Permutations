@@ -8,10 +8,6 @@ internal class WrappedArray<T>(private val array: Array<T>) : ArrayInterface<T> 
         array[index] = value
     }
 
-    override fun iterator(): Iterator<T> {
-        return array.iterator()
-    }
-
     fun output(): Array<T> {
         return array
     }

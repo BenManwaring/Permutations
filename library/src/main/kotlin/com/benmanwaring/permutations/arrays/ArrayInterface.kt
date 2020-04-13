@@ -1,6 +1,6 @@
 package com.benmanwaring.permutations.arrays
 
-internal interface ArrayInterface<T> : Iterable<T> {
+internal interface ArrayInterface<T> {
 
     val size: Int
 
