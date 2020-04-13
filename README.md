@@ -1,5 +1,114 @@
-License
-=======
+# Binaries
+At time of writing GitHub packages only support authenticated usage, see thread on confirmation here:
+https://github.community/t5/GitHub-API-Development-and/Download-from-Github-Package-Registry-without-authentication
+
+Your `GITHUB_USERNAME` is your GitHub username.
+You can generate a `GITHUB_TOKEN` using you GitHub personal account setting area, it will need access to packages.
+
+```
+repositories {
+    maven {
+        name = "GitHubPackages"
+        url = "https://maven.pkg.github.com/BenManwaring/Permutations"
+        credentials {
+            username = System.getenv("GITHUB_USERNAME")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.benmanwaring:permutations:1.0.2'
+}
+```
+# Sample Ussage
+## For CharArray to String permutations
+### Fixed length
+#### Code
+```
+val stringPermutationsIterable = StringPermutations("AB".toCharArray()).iterable(2)
+
+for (stringPermutation in stringPermutationsIterable) {
+    System.out.println(stringPermutation)
+}
+```
+#### Output
+```
+AA
+AB
+BA
+BB
+```
+### Range of lengths
+#### Code
+```
+val stringPermutationsIterable = StringPermutations("AB".toCharArray()).iterable(1..3)
+
+for (stringPermutation in stringPermutationsIterable) {
+    System.out.println(stringPermutation)
+}
+```
+#### Output
+```
+A
+B
+AA
+AB
+BA
+BB
+AAA
+AAB
+ABA
+ABB
+BAA
+BAB
+BBA
+BBB
+```
+## Generic permutations
+### Fixed length
+#### Code
+```
+val binaryPermutationsIterable = Permutations.create(arrayOf(0, 1)).iterable(2)
+
+for (binaryPermutation in binaryPermutationsIterable) {
+    System.out.println(binaryPermutation.joinToString(separator = ", "))
+}
+```
+#### Output
+```
+0, 0
+0, 1
+1, 0
+1, 1
+```
+### Range of lengths
+#### Code
+```
+val binaryPermutationsIterable = Permutations.create(arrayOf(0, 1)).iterable(1..3)
+
+for (binaryPermutation in binaryPermutationsIterable) {
+    System.out.println(binaryPermutation.joinToString(separator = ", "))
+}
+```
+#### Output
+```
+0
+1
+0, 0
+0, 1
+1, 0
+1, 1
+0, 0, 0
+0, 0, 1
+0, 1, 0
+0, 1, 1
+1, 0, 0
+1, 0, 1
+1, 1, 0
+1, 1, 1
+```
+# License
 
     Copyright 2016 Ben Manwaring
 
