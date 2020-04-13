@@ -65,7 +65,101 @@ BAB
 BBA
 BBB
 ```
-## Generic permutations
+## For CharRange to String permutations
+### Fixed length
+#### Code
+```
+val stringPermutations = ('A'..'C').permutations(2)
+
+for (stringPermutation in stringPermutations) {
+    System.out.println(stringPermutation)
+}
+```
+#### Output
+```
+AA
+AB
+AC
+BA
+BB
+BC
+CA
+CB
+CC
+```
+### Range of lengths
+#### Code
+```
+val stringPermutations = ('A'..'C').permutations(1..3)
+
+for (stringPermutation in stringPermutations) {
+    System.out.println(stringPermutation)
+}
+```
+#### Output
+```
+A
+B
+C
+AA
+AB
+AC
+BA
+BB
+BC
+CA
+CB
+CC
+AAA
+AAB
+ABA
+
+...
+```
+## List permutations
+### Fixed length
+#### Code
+```
+val binaryPermutations = listOf(0, 1).permutations(2)
+
+for (binaryPermutation in binaryPermutations) {
+    System.out.println(binaryPermutation.joinToString(separator = ", "))
+}
+```
+#### Output
+```
+0, 0
+0, 1
+1, 0
+1, 1
+```
+### Range of lengths
+#### Code
+```
+val binaryPermutations = listOf(0, 1).permutations(1..3)
+
+for (binaryPermutation in binaryPermutations) {
+    System.out.println(binaryPermutation.joinToString(separator = ", "))
+}
+```
+#### Output
+```
+0
+1
+0, 0
+0, 1
+1, 0
+1, 1
+0, 0, 0
+0, 0, 1
+0, 1, 0
+0, 1, 1
+1, 0, 0
+1, 0, 1
+1, 1, 0
+1, 1, 1
+```
+## Array permutations
 ### Fixed length
 #### Code
 ```

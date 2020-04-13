@@ -147,11 +147,11 @@ class StringPermutationsTest {
         val stringPermutations = "A".permutations(1..1000)
 
         var incrementCount = 0
-        var expectedString = "A"
-        for (string in stringPermutations) {
-            assertThat(string, `is`(expectedString))
+        var expectedStringPermutation = "A"
+        for (stringPermutation in stringPermutations) {
+            assertThat(stringPermutation, `is`(expectedStringPermutation))
             incrementCount++
-            expectedString += "A"
+            expectedStringPermutation += "A"
         }
 
         assertThat(incrementCount, `is`(1000))
@@ -162,11 +162,11 @@ class StringPermutationsTest {
         val stringPermutations = "A".permutations(10..1000)
 
         var incrementCount = 0
-        var expectedString = "AAAAAAAAAA"
-        for (string in stringPermutations) {
-            assertThat(string, `is`(expectedString))
+        var expectedStringPermutation = "AAAAAAAAAA"
+        for (stringPermutation in stringPermutations) {
+            assertThat(stringPermutation, `is`(expectedStringPermutation))
             incrementCount++
-            expectedString += "A"
+            expectedStringPermutation += "A"
         }
 
         assertThat(incrementCount, `is`(991))

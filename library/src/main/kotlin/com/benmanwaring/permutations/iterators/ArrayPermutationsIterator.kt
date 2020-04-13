@@ -8,11 +8,11 @@ internal class ArrayPermutationsIterator<T>(private val permutations: Iterator<W
     constructor(
         inputArray: Iterable<T>,
         length: Int,
-        arrayInit: (length: Int, initialValue: T) -> Array<T>
+        arrayFactory: (length: Int, initialValue: T) -> Array<T>
     ) : this(
         PermutationIterator(
             inputArray,
-            WrappedArray(arrayInit.invoke(length, inputArray.first()))
+            WrappedArray(arrayFactory.invoke(length, inputArray.first()))
         )
     )
 

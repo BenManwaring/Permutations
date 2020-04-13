@@ -5,7 +5,7 @@ import org.hamcrest.core.Is.`is`
 import org.junit.Assert.assertThrows
 import org.junit.Test
 
-class PermutationsTest {
+class ArrayPermutationsTest {
 
     @Test
     fun `Any permutations iterator for fixed length valid input array`() {
