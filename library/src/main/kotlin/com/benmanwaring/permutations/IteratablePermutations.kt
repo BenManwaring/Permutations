@@ -1,8 +1,8 @@
 package com.benmanwaring.permutations
 
 import com.benmanwaring.permutations.iterables.PermutationsIterable
-import com.benmanwaring.permutations.iterators.ListPermutationsIterator
 import com.benmanwaring.permutations.iterators.IncrementalLengthIterator
+import com.benmanwaring.permutations.iterators.ListPermutationsIterator
 
 inline fun <reified T> Iterable<T>.permutations(length: Int): Iterable<List<T>> {
     return permutations(length, mutableListFactory())

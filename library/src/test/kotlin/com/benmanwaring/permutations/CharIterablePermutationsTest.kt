@@ -5,7 +5,7 @@ import org.hamcrest.core.Is.`is`
 import org.junit.Assert
 import org.junit.Test
 
-class CharRangePermutationsTest {
+class CharIterablePermutationsTest {
 
     @Test
     fun `Char range permutation iterator with fixed length`() {
